@@ -34,13 +34,13 @@ const JobsCard = () => {
         }
       });
       if (!res.ok) {
-        Swal.fire({
+       return ( Swal.fire({
         title: 'Login First ',
         icon: 'warning',
         confirmButtonColor: '#f97316'
-      });
+      }),
       navigate("/user/login")
-      };
+      )};
       
       Swal.fire({
         title: '🎉 Applied!',
