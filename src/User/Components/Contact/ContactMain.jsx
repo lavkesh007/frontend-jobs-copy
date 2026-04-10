@@ -66,7 +66,7 @@ const ContactMain = () => {
           </p>
 
           <div className="mt-6 space-y-4 text-sm text-gray-700">
-            <p>📧 Email: support@lynkjobs.com</p>
+            <p>📧 Email: lynkjobs09@gmail.com</p>
             <p>📞 Phone: +91 87674 410609</p>
             <p>📍 Location: Bangalore, India</p>
           </div>
