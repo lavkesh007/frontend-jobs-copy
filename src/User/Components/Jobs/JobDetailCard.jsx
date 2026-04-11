@@ -15,7 +15,7 @@ const JobsCard = () => {
   }, [id]);
   if (!job) return <h2>Loading...</h2>;
   const handleApply =async () =>{
-    const result =  await Swal.fire({
+    const userreply =  await Swal.fire({
       title: 'Apply for this job?',
       text: 'Do you want to apply for this role?',
       icon: 'question',
@@ -24,6 +24,43 @@ const JobsCard = () => {
       cancelButtonText: 'No',
       confirmButtonColor: '#f97316'
     });
+    if(userreply.isConfirmed){
+      try {
+      const res1 = await fetch(`https://lynkjobs-1.onrender.com/user/validateUser`, {
+        method : "GET",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      });
+      if (!res1.ok) {
+       return ( Swal.fire({
+        title: 'Login First ',
+        icon: 'warning',
+        confirmButtonColor: '#f97316'
+      }),
+      navigate("/user/login")
+      )};
+      window.open(job.websiteUrl, "_blank");
+    } catch (err) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Something went wrong.',
+        icon: 'error'
+      });
+    }
+    
+    }else{
+      return;
+    }
+    const result =  await Swal.fire({
+      title: 'Are you applied the Job?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      confirmButtonColor: '#f97316'
+    });
+
     if (result.isConfirmed) {
     try {
       const res = await fetch(`https://lynkjobs-1.onrender.com/user/apply/${id}`, {
@@ -33,22 +70,16 @@ const JobsCard = () => {
           Authorization: "Bearer " + localStorage.getItem("token")
         }
       });
-      if (!res.ok) {
-       return ( Swal.fire({
-        title: 'Login First ',
-        icon: 'warning',
-        confirmButtonColor: '#f97316'
-      }),
-      navigate("/user/login")
-      )};
+      if (res.ok) {
+       return (
       
       Swal.fire({
         title: '🎉 Applied!',
         text: 'Congratulations 🥳 You Applied the Job',
         icon: 'success',
         confirmButtonColor: '#f97316'
-      });
-      window.open(job.websiteUrl, "_blank");
+      })
+    )};
 
     } catch (err) {
       Swal.fire({
