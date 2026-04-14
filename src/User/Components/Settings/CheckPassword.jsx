@@ -43,8 +43,9 @@ const CheckPassword = () => {
       const res = await fetch("https://lynkjobs-1.onrender.com/user/settingOTP",{
         method : "POST",
         headers : {
+          
           Authorization : "Bearer " + localStorage.getItem("token")
-        }
+        } 
       });
 
       const data = await res.json();

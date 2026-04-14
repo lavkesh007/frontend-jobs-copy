@@ -21,7 +21,7 @@ const AllJobsCard = () => {
     <div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-5 ">
-        
+       
         {job.map((data, index) => (
           <div
             key={index}
@@ -91,7 +91,7 @@ const AllJobsCard = () => {
             </div>
 
             {/* Button */}
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center  mt-4">
               <button
                 onClick={() =>
                   navigate(`/user/jobDetail/${data.jobID}`)

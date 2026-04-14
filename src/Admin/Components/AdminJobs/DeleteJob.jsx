@@ -26,12 +26,14 @@ const DeleteJob = () => {
         })
         };
        
-        return Swal.fire({
+        return (Swal.fire({
           title:"✅ Job deleted successfully",
           icon: "success",
-        });
+        }),
+        setJobId("")
+      );
 
-        setJobId("");
+        
       })
       .catch((error) => 
         console.error(error),
