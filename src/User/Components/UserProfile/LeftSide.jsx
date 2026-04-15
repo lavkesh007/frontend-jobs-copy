@@ -21,7 +21,7 @@ const LeftSide = () => {
     },[]);
 
   return (
-    <div className='bg-black/50 backdrop-blur-md border-r text-lg border-white/20 w-full md:w-[250px] p-4 flex flex-col justify-between'>
+    <div className='bg-black/50 h-full backdrop-blur-md border-r text-lg border-white/20 w-full md:w-[250px] p-4 flex flex-col justify-between'>
 
         {/* 🔥 Top Section */}
         <div className='flex flex-col gap-4'>

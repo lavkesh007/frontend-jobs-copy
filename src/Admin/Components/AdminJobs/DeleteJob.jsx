@@ -36,11 +36,11 @@ const DeleteJob = () => {
         
       })
       .catch((error) => 
-        console.error(error),
+       ( console.error(error),
         Swal.fire({
           title : "❌ Failed to delete job",
           icon : "error"
-        }))
+        })))
       
   };
 
