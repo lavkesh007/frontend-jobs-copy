@@ -12,9 +12,12 @@ const RegisterMiddleContent = () => {
     const [DoB,setDob] = useState("");
     const [Password,setPassword] = useState("");
     const [RePassword,setRePassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleRegister = async(e) =>{
         e.preventDefault();
+        if (loading) return;
+        setLoading(true);
         try{
             if(Password !== RePassword){
                 Swal.fire({
@@ -23,6 +26,7 @@ const RegisterMiddleContent = () => {
                     icon:'warning',
                     timer:2000
                 })
+                setLoading(false);
                 return;
             }else{
                 const response = await fetch("https://lynkjobs-1.onrender.com/user/registerEmailOtp",{
@@ -61,6 +65,8 @@ const RegisterMiddleContent = () => {
         }catch(error){
             alert(error)
             console.error(error);
+        }finally {
+            setLoading(false); // stop loading always
         }
     }
 
@@ -147,8 +153,20 @@ const RegisterMiddleContent = () => {
                     />
                 </div>
 
-                <button className="w-full bg-slate-500 text-white p-2 rounded hover:bg-slate-800">
-                    Register
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className={`w-full p-2 rounded text-white 
+                    ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-slate-500 hover:bg-slate-800'}`}
+                >
+                    {loading ? (
+                        <span className="flex items-center justify-center gap-2">
+                            <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                            Processing...
+                        </span>
+                    ) : (
+                        "Register"
+                    )}
                 </button>
 
                 <div className='flex flex-col md:flex-row mt-2 text-center'>
