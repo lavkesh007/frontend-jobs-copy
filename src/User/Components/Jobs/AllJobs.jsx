@@ -6,7 +6,6 @@ import FooterMain from '../Footer/FooterMain';
 
 const AllJobs = () => {
     const [job, setJob] = useState([]);
-    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const locationHook = useLocation();
     const params = new URLSearchParams(locationHook.search);
@@ -23,7 +22,7 @@ const AllJobs = () => {
      
     }
     fetch(url)
-      .then((res) => {res.json()})
+      .then((res) => res.json())
       .then((data) => setJob(data))
       .catch((err) => console.error(err));
     },500)
