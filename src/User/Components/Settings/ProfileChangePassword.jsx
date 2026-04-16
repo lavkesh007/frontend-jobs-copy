@@ -5,16 +5,17 @@ import Swal from 'sweetalert2';
 const ChangePassword = () => {
   const [Password,setPassword] = useState("");
   const [RePassword,setRePassword] = useState("");
+  const [loading,setLoading] = useState(false);
   const navigate = useNavigate();
 
   const changePassword = async (e) => {
     e.preventDefault();
-
+    if(loading) return;
     if(Password !== RePassword){
       Swal.fire({ text: "Paswsword Not Match", icon : 'warning' })
       return;
     }
-
+    setLoading(true);
     try{
       const response = await fetch("https://lynkjobs-1.onrender.com/user/settingPassword" ,{
         method : "PUT",
@@ -28,13 +29,16 @@ const ChangePassword = () => {
       const data = await response.json();
 
       if(response.ok){
+        setLoading(false);
         Swal.fire({ text: data.message, icon :'success' })
         navigate("/user/profile/setting")
       }else{
+        setLoading(false);
         Swal.fire({ text: data.message, icon : 'warning' })
       }
 
     }catch(error){
+      setLoading(false);
       console.error(error)
     }
   }
@@ -68,8 +72,15 @@ const ChangePassword = () => {
             onChange={(e)=>setRePassword(e.target.value)}
           />
 
-          <button className="w-full bg-slate-400 text-white p-2 rounded">
-            Change
+          <button className={`w-full bg-slate-400 text-white p-2 rounded ${loading ? 'cursor-not-allowed bg-slate-200':'bg-slate-400 hover:bg-slate-500'}`}>
+            {loading ? (
+                        <span className="flex items-center justify-center gap-2">
+                            <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                            Updating...
+                        </span>
+                    ) : (
+                        "Change"
+                    )}
           </button>
 
         </form>

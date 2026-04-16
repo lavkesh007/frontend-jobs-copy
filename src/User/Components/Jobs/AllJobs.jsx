@@ -6,7 +6,7 @@ import FooterMain from '../Footer/FooterMain';
 
 const AllJobs = () => {
     const [job, setJob] = useState([]);
-    
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const locationHook = useLocation();
     const params = new URLSearchParams(locationHook.search);
@@ -14,13 +14,16 @@ const AllJobs = () => {
     const location = params.get("location") || "";
   useEffect(() => {
     const delay = setTimeout(() => {
+      
+    
     let url = "https://lynkjobs-1.onrender.com/jobs/allJobs";
 
     if (role || location) {
       url = `https://lynkjobs-1.onrender.com/jobs/search?role=${encodeURIComponent(role)}&location=${encodeURIComponent(location)}`;
+     
     }
     fetch(url)
-      .then((res) => res.json())
+      .then((res) => {res.json()})
       .then((data) => setJob(data))
       .catch((err) => console.error(err));
     },500)

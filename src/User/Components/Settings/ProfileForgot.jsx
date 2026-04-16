@@ -1,3 +1,4 @@
+// import { loadESLint } from 'eslint';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -5,15 +6,18 @@ import Swal from 'sweetalert2';
 const ProfileForgot = () => {
   const navigate = useNavigate();
   const [otp,setOTP] = useState();
+  const [Loading,setLoading] = useState(false);
 
   const verfiyOtp = async (e) => {
     e.preventDefault();
+    if(Loading) return;
+    
     try{
       if (!otp) {
         Swal.fire({ text: "Enter OTP", icon : 'warning' })
         return;
       }
-
+      setLoading(true);
       const response = await fetch("https://lynkjobs-1.onrender.com/user/settingVerifyOTP",{
         method : "POST",
         headers : {
@@ -26,11 +30,14 @@ const ProfileForgot = () => {
       const data = await response.json();
 
       if(response.ok){
+        setLoading(false);
         navigate("/user/profile/setting/ChangePassword")
       }else{
+        setLoading(false);
         Swal.fire({ text: data.message, icon : 'warning' })
       }
     }catch(error){
+      setLoading(false);
       console.error(error);
     }
   }
@@ -57,12 +64,17 @@ const ProfileForgot = () => {
         />
 
         <div className='flex gap-3 w-full'>
-          <button className="w-1/2 bg-slate-400 text-white p-2 rounded" onClick={()=> navigate(-1)}>
+          <button className="w-1/2 bg-slate-400 text-white hover:bg-slate-500 p-2 rounded" onClick={()=> navigate(-1)}>
             Back
           </button>
 
-          <button className="w-1/2 bg-slate-400 text-white p-2 rounded" onClick={verfiyOtp}>
-            Verify
+          <button className={`w-1/2 bg-slate-400 hover:bg-slate-500 text-white p-2 rounded ${Loading ? 'bg-slate-300 cursor-not-allowed':'bg-slate-400 hover:bg-slate-500'}`} onClick={verfiyOtp}>
+            {Loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                Verifing...
+              </span>
+            ):("Verify")}
           </button>
         </div>
 

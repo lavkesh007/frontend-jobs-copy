@@ -7,14 +7,16 @@ const Otp = () => {
     const location = useLocation();
     const userData = location.state || JSON.parse(localStorage.getItem("userData"));
     const [otp , setOTP] = useState("");
+    const [loading , setLoading] = useState(false);
 
     const verfiyOtp = async () => {
+      if(loading) return;
         try{
           if (!otp) {
             alert("Enter OTP");
             return;
           }
-
+          setLoading(true);
             const response = await fetch("https://lynkjobs-1.onrender.com/user/register" , {
                 method : "POST",
                 headers : {
@@ -33,6 +35,7 @@ const Otp = () => {
             const data = await response.json();
 
             if(response.ok){
+              setLoading(false);
                 Swal.fire({
                     title: 'Registration Successful!',
                     text: 'Your account has been created.',
@@ -42,6 +45,7 @@ const Otp = () => {
 
                 navigate("/user/login")
             }else{
+              setLoading(false);
                 Swal.fire({
                     title: data.message,
                     icon: 'error',
@@ -49,6 +53,7 @@ const Otp = () => {
                 });
             }
         }catch(error){
+          setLoading(false);
             console.error(error);
         }
     }
@@ -73,10 +78,15 @@ const Otp = () => {
       />
 
       <button 
-        className="w-full max-w-xs bg-slate-500 text-white p-2 rounded hover:bg-slate-800"
+        className={`w-full max-w-xs bg-slate-500 text-white p-2 rounded hover:bg-slate-800 ${loading ? 'cursor-not-allowed bg-slate-300' :'bg-slate-500 hover:bg-slate-800'}`}
         onClick={verfiyOtp}
       >
-        Verify
+        {loading ? (
+          <span className="flex items-center justify-center gap-2">
+            <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+            Verifing...
+          </span>
+        ):("Verify")}
       </button>
 
     </div>

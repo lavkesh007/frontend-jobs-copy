@@ -4,9 +4,13 @@ import Swal from 'sweetalert2';
 
 const CheckPassword = () => {
   const [Password,setPassword] = useState("");
+  const [Sloading,setSLoading] = useState(false);
+  const [loading,setLoading] = useState(false);
   const navigate = useNavigate();
 
   const checkPassword = async () => { 
+    if(Sloading) return;
+    setSLoading(true);
     try {
       const res = await fetch("https://lynkjobs-1.onrender.com/user/checkOldPassword",{
         method : "POST",
@@ -22,8 +26,10 @@ const CheckPassword = () => {
       const data = await res.json();
 
       if(res.ok){
+        setSLoading(false);
         navigate("/user/profile/setting/changePassword"); 
       }else{
+        setSLoading(false);
         Swal.fire({
           title : "Wrong Password",
           icon :'warning'     
@@ -31,6 +37,7 @@ const CheckPassword = () => {
       }
 
     } catch (error) {
+      setSLoading(false);
       Swal.fire({
         title : "Server Error",
         icon :'error'     
@@ -39,6 +46,8 @@ const CheckPassword = () => {
   }
 
   const sendOTP = async () => {
+    if(loading) return;
+    setLoading(true);
     try {
       const res = await fetch("https://lynkjobs-1.onrender.com/user/settingOTP",{
         method : "POST",
@@ -51,8 +60,10 @@ const CheckPassword = () => {
       const data = await res.json();
 
       if(res.ok){
+        setLoading(false);
         navigate("/user/profile/setting/forgot");
       } else {
+        setLoading(false);
         Swal.fire({
           text: "Failed to send OTP",
           icon : 'warning'
@@ -60,6 +71,7 @@ const CheckPassword = () => {
       }
 
     } catch (error) {
+      setLoading(false);
       Swal.fire({
         text: "Server Error",
         icon: "error"
@@ -84,17 +96,28 @@ const CheckPassword = () => {
         />
 
         <button 
-          className='w-full bg-slate-500 hover:bg-slate-400 h-9 rounded-lg text-white'
+          className={`w-full bg-slate-400 hover:bg-slate-500 h-9 rounded-lg text-white ${Sloading ? 'bg-slate-300 cursor-not-allowed' :'bg-slate-400 hover:bg-slate-500'}`}
           onClick={checkPassword}
         >
-          Submit
+          {Sloading ? (
+            <span className="flex items-center justify-center gap-2">
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              Verifing...
+            </span>
+          ):("Submit")}
         </button>
 
         <h1 
-          className='cursor-pointer text-red-400 hover:text-red-500 underline text-sm'
+          className={`cursor-pointer text-red-400 hover:text-red-500 underline text-sm ${loading ? 'cursor-not-allowed text-red-300':'text-red-400 hover:text-red-500'}`}
           onClick={sendOTP}
         >
-          forgot Password ?
+          {loading ? (
+            <span className="flex items-center justify-center gap-2">
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              OTP Sending...
+            </span>
+          ):("forgot Password ?")}
+          
         </h1>
 
       </div>

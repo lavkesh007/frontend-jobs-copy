@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
     const navigate = useNavigate();
 
     const [role, setRole] = useState("");
+    
     const [location, setLocation] = useState("");
     const handleSearch = ()=>{
       navigate(`/user/alljobs?role=${encodeURIComponent(role)}&location=${encodeURIComponent(location)}`)

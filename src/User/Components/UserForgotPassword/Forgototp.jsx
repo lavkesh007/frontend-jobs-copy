@@ -7,18 +7,21 @@ const Forgototp = () => {
     const userData = location.state || JSON.parse(localStorage.getItem("userData"));
     const navigate = useNavigate()
     const [otp,setOTP] = useState("");
+    const [loading,setLoading] = useState(false);
 
     const verfiyOtp = async (e) => {
         e.preventDefault();
-
+        if(loading) return;
+        
         if (!otp) {
+
             Swal.fire({
                 text: "Please enter OTP",
                 icon : 'warning'
             })
             return;
         }
-
+        setLoading(true);
         try{
             const response = await fetch("https://lynkjobs-1.onrender.com/user/forgotPasswordverifyOTP",{
                 method : "POST",
@@ -34,16 +37,19 @@ const Forgototp = () => {
             const data = await response.json();
 
             if(response.ok){
+              setLoading(false);
                 navigate("/user/login/changePassword",{
                     state:{ email : userData.email }
                 })
             }else{
+              setLoading(false);
                Swal.fire({
                      text: data.message,
                      icon : 'warning'
                 })
             }
         }catch(error){
+          setLoading(false);
             console.error(error);
         }
     }
@@ -68,10 +74,16 @@ const Forgototp = () => {
       />
 
       <button 
-        className="w-full max-w-xs bg-slate-400 text-white p-2 rounded hover:bg-slate-500"
+        className={`w-full max-w-xs bg-slate-400 text-white p-2 rounded hover:bg-slate-500 ${loading ? 'cursor-not-allowed bg-slate-200':'bg-slate-400 hover:bg-slate-500'}`}
         onClick={verfiyOtp}
       >
-        Verify
+        {loading ?  (
+          <span className="flex items-center justify-center gap-2">
+            <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+            Verifing...
+          </span>
+        ):("Verify")}
+        
       </button>
 
     </div>

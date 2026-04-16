@@ -18,6 +18,7 @@ const EditProfile = () => {
 
     // 🔹 User data
     const [user,setUser] = useState({});
+    const [loading,setLoading] = useState(false);
 
     // 🔹 Fetch data
     useEffect(()=>{
@@ -46,6 +47,7 @@ const EditProfile = () => {
         [field]: value
         });
     }
+    
     const [file,setFile] = useState();
     const onSubmit = () => {
         const formdata = new FormData();
@@ -53,6 +55,8 @@ const EditProfile = () => {
         if(file){
             formdata.append("image",file);
         }
+        if(loading) return;
+    setLoading(true);
     fetch("https://lynkjobs-1.onrender.com/user/editUser",{
         method:"POST",
         headers :{
@@ -63,9 +67,11 @@ const EditProfile = () => {
     .then(res => {
         if(res.status === 401){
          return (  localStorage.removeItem("token"),
-            navigate("/login"))
+            navigate("/login")),
+            setLoading(false);
         }
         if(res.ok){
+            setLoading(false);
         Swal.fire({
             title : "Profile Updated!",
             icon:"success"
@@ -83,6 +89,7 @@ const EditProfile = () => {
        
         navigate("/user/profile")
         } else {
+            setLoading(false);
         Swal.fire({
             title : "Update Failed ❌",
             icon : "error"
@@ -240,7 +247,14 @@ const EditProfile = () => {
 
         {/* Submit */}
         <div className='flex justify-center mt-5'>
-            <button className='w-32 h-10 bg-blue-500 text-white rounded-xl' onClick={onSubmit}>Submit</button>
+            <button className={`w-32 h-10 bg-blue-500 text-white rounded-xl ${loading ? 'bg-blue-300 cursor-not-allowed':'bg-blue-500 hover:bg-blue-600'}`} onClick={onSubmit}>
+                {loading ? (
+                    <span className="flex items-center justify-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                        Updating...
+                    </span>
+                ):("Submit")}
+            </button>
         </div>
 
       </div>
