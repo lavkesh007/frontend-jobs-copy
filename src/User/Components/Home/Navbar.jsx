@@ -38,7 +38,7 @@ const Navbar = () => {
         <div className="flex items-center bg-black/10 rounded-2xl p-2 w-auto md:w-56 text-center flex-col">
           
           <h1 className='text-xl md:text-3xl text-slate-800 font-serif font-bold'>
-            LyNK <span className='text-orange-600'>Job's</span>
+            Ly <span className='text-orange-600'>Job's</span>
           </h1>
         </div>
 
