@@ -14,7 +14,7 @@ const RightSide = () => {
     if(loading) return;
     setLoading(true);
     try {
-      const response = await fetch("http://15.134.142.177:8080/user/login", {
+      const response = await fetch("https://api.jobslynk.in/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
