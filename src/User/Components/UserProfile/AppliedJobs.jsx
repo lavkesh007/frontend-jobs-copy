@@ -4,7 +4,7 @@ const AppliedJobs = () => {
   const [job, setJob] = useState([]);
 
   useEffect(() => {
-    fetch("https://lynkjobs-1.onrender.com/user/allAppliedJobs", {
+    fetch("http://15.134.142.177:8080/user/allAppliedJobs", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token")
       }

@@ -7,7 +7,7 @@ const LeftSide = () => {
     const location = useLocation();
     
     useEffect(()=>{
-        fetch("https://lynkjobs-1.onrender.com/user/userDetails",{
+        fetch("http://15.134.142.177:8080/user/userDetails",{
             headers : {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }

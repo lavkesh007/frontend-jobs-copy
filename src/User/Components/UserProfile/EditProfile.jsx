@@ -22,7 +22,7 @@ const EditProfile = () => {
 
     // 🔹 Fetch data
     useEffect(()=>{
-        fetch("https://lynkjobs-1.onrender.com/user/userDetails",{
+        fetch("http://15.134.142.177:8080/user/userDetails",{
         headers : {
             Authorization : "Bearer " + localStorage.getItem("token")
         }
@@ -57,7 +57,7 @@ const EditProfile = () => {
         }
         if(loading) return;
     setLoading(true);
-    fetch("https://lynkjobs-1.onrender.com/user/editUser",{
+    fetch("http://15.134.142.177:8080/user/editUser",{
         method:"POST",
         headers :{
         Authorization : "Bearer " + localStorage.getItem("token")

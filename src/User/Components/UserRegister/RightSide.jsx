@@ -29,7 +29,7 @@ const RegisterMiddleContent = () => {
                 setLoading(false);
                 return;
             }else{
-                const response = await fetch("https://lynkjobs-1.onrender.com/user/registerEmailOtp",{
+                const response = await fetch("http://15.134.142.177:8080/user/registerEmailOtp",{
                     method : "POST",
                     headers:{
                         "Content-Type" : "application/json"
