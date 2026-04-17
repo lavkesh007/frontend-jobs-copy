@@ -27,6 +27,9 @@ const LeftAdminHome = () => {
             <div className={`w-full hover:bg-black/20 h-12 rounded-lg text-lg p-2 cursor-pointer ${location.pathname==="/admin/dashboard/addJob" ? "bg-black/20 " : "hover:bg-black/20"}`} onClick={()=> admin ? navigate('/admin/dashboard/addJob') : navigate('/admin/login')}>Add Jobs</div>
             <div className={`w-full hover:bg-black/20 h-12 rounded-lg text-lg p-2 cursor-pointer ${location.pathname==="/admin/dashboard/deleteJob" ? "bg-black/20 " : "hover:bg-black/20"}`} onClick={()=> admin ? navigate("/admin/dashboard/deleteJob") : navigate('/admin/login')}>Delete Jobs</div>
             <div className={`w-full hover:bg-black/20 h-12 rounded-lg text-lg p-2 cursor-pointer ${location.pathname==="/admin/dashboard/userMessage" ? "bg-black/20" : "hover:bg-black/20"}`} onClick={()=> admin ? navigate("/admin/dashboard/userMessage") : navigate('/admin/login')}>User Message</div>
+            <div className={`w-full hover:bg-black/20 h-12 rounded-lg text-lg p-2 cursor-pointer ${location.pathname==="/admin/dashboard/userApplyInfo" ? "bg-black/20" : "hover:bg-black/20"}`} onClick={()=> admin ? navigate("/admin/dashboard/userApplyInfo") : navigate('/admin/login')}>User Applied for Job</div>
+            <div className={`w-full hover:bg-black/20 h-12 rounded-lg text-lg p-2 cursor-pointer ${location.pathname==="/admin/dashboard/userInfo" ? "bg-black/20" : "hover:bg-black/20"}`} onClick={()=> admin ? navigate("/admin/dashboard/userInfo") : navigate('/admin/login')}>User Information</div>
+
             
       </div>
       <div className='gap-3 p-3'>

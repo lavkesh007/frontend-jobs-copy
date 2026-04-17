@@ -32,6 +32,8 @@ import ProfileForgot from './User/Components/Settings/ProfileForgot';
 import DeleteUser from './User/Components/Settings/DeleteUser';
 import AdminProtectiveRoute from './Admin/Components/ProtectiveRoute/AdminProtectiveRoute';
 import UserProtectedRoute from './User/Components/ProtectedRoute/UserProtectedRoute';
+import ApplyInfo from './Admin/Components/UserJobApplyInfo/ApplyInfo';
+import UserInformation from './Admin/Components/UserInfo/UserInformation';
 
 const App = () => {
   return (
@@ -105,6 +107,8 @@ const App = () => {
           <Route path="profile" element={<AdminDetails/>}/>
           <Route path="deleteJob" element={<DeleteJob/>}/>
           <Route path="userMessage" element={<AdminUserRequest/>}/>
+          <Route path="userApplyInfo" element={<ApplyInfo/>}/>
+          <Route path='userInfo' element={<UserInformation/>}/>
           </Route>
         
 

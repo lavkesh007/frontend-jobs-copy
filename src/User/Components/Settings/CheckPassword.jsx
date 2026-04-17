@@ -108,7 +108,7 @@ const CheckPassword = () => {
         </button>
 
         <h1 
-          className={`cursor-pointer text-red-400 hover:text-red-500 underline text-sm ${loading ? 'cursor-not-allowed text-red-300':'text-red-400 hover:text-red-500'}`}
+          className={`cursor-pointer text-red-400 hover:text-red-500 underline text-sm ${loading ? ' text-red-300 cursor-not-allowed':'text-red-400 hover:text-red-500'}`}
           onClick={sendOTP}
         >
           {loading ? (
